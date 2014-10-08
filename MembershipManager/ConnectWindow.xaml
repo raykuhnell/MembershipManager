@@ -1,0 +1,22 @@
+﻿<Window x:Class="MembershipManager.ConnectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Connect" Height="400" Width="525">
+    <Grid>
+        <Button x:Name="btnConnect" Content="Connect" HorizontalAlignment="Left" Margin="432,339,0,0" VerticalAlignment="Top" Width="75" Click="btnConnect_Click"/>
+        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="118,126,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+        <TextBox x:Name="txtServer" HorizontalAlignment="Left" Height="23" Margin="118,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="378"/>
+        <TextBox x:Name="txtDatabase" HorizontalAlignment="Left" Height="23" Margin="118,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="378"/>
+        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="23" Margin="118,98,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+        <Label Content="Connect to ASP.NET Membership Database&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26"/>
+        <Button x:Name="btnSave" Content="Save Connection" HorizontalAlignment="Left" Margin="331,339,0,0" VerticalAlignment="Top" Width="96"/>
+        <DataGrid HorizontalAlignment="Left" Margin="10,242,0,0" VerticalAlignment="Top" Height="92" Width="497"/>
+        <Label Content="Saved Connections&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,195,0,0" VerticalAlignment="Top"/>
+        <Label Content="Server:" HorizontalAlignment="Left" Margin="5,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="Database:" HorizontalAlignment="Left" Margin="5,69,0,0" VerticalAlignment="Top"/>
+        <Label Content="Username:" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top"/>
+        <Label Content="Password:" HorizontalAlignment="Left" Margin="5,126,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtApplicationName" HorizontalAlignment="Left" Height="23" Margin="118,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170"/>
+        <Label Content="Application Name:" HorizontalAlignment="Left" Margin="5,152,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

@@ -1,0 +1,18 @@
+﻿<Window x:Class="MembershipManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MembershipManager" Height="600" Width="800">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="549" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
+            <TabItem Header="Users">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-7.667,-4.385"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Roles">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
