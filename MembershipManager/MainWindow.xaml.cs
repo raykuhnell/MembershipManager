@@ -24,7 +24,6 @@ namespace MembershipManager
         {
             InitializeComponent();
 
-            var Membership = new CustomSqlMembershipProvider();
             int total = 0;
             var users = Membership.GetAllUsers(0, 100, out total);
             MessageBox.Show("Users: " + total);

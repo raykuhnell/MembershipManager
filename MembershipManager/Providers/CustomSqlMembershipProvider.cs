@@ -8,18 +8,13 @@ namespace MembershipManager.Providers
 {
     public class CustomSqlMembershipProvider : SqlMembershipProvider
     {
-        public CustomSqlMembershipProvider()
+        public override void Initialize(string name, NameValueCollection config)
         {
-            var config = new NameValueCollection();
-            config.Add("connectionStringName", "PlaceholderConnectionString");
-            this.Initialize(String.Empty, config);
-        }
-        public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
-        {
-            base.Initialize(name, config);
-
             var mc = MembershipConnection.Get();
-            this.ApplicationName = mc.ApplicationName;
+            config.Set("applicationName", mc.ApplicationName);
+            config.Set("connectionStringName", "DummyConnectionString");
+
+            base.Initialize(name, config);
 
             var connectionString = String.Format("data source={0};initial catalog={1};user id={2};password={3};", mc.Server, mc.Database, mc.Username, mc.Password);
             FieldInfo connectionStringField = GetType().BaseType.GetField("_sqlConnectionString", BindingFlags.Instance | BindingFlags.NonPublic);
