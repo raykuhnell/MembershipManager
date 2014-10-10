@@ -9,7 +9,7 @@
         <TextBox x:Name="txtDatabase" HorizontalAlignment="Left" Height="23" Margin="127,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="355"/>
         <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Height="23" Margin="127,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
         <Label Content="Connect to ASP.NET Membership Database" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26"/>
-        <Button x:Name="btnSave" Content="Save Connection" HorizontalAlignment="Left" Margin="10,212,0,0" VerticalAlignment="Top" Width="96" Cursor="Hand"/>
+        <Button x:Name="btnSave" Content="Save Connection" HorizontalAlignment="Left" Margin="10,212,0,0" VerticalAlignment="Top" Width="96" Cursor="Hand" Click="btnSave_Click"/>
         <Label Content="Saved Connections:" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Width="112"/>
         <Label Content="Server:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
         <Label Content="Database:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>

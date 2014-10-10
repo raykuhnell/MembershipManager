@@ -22,5 +22,16 @@ namespace MembershipManager.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Connections {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Connections"]));
+            }
+            set {
+                this["Connections"] = value;
+            }
+        }
     }
 }

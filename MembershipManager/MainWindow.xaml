@@ -6,7 +6,20 @@
         <TabControl HorizontalAlignment="Left" Height="549" Margin="10,10,0,0" VerticalAlignment="Top" Width="772">
             <TabItem Header="Users">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="-7.667,-4.385"/>
+                    <DataGrid x:Name="grdUsers" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="User Name" Binding="{Binding UserName}" />
+                            <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                            <DataGridTextColumn Header="Approved" Binding="{Binding IsApproved}" />
+                            <DataGridTextColumn Header="Locked Out" Binding="{Binding IsLockedOut}" />
+                            <DataGridTextColumn Header="Online" />
+                            <DataGridTextColumn Header="Created" />
+                            <DataGridTextColumn Header="Last Activity" />
+                            <DataGridTextColumn Header="Last Lockout" />
+                            <DataGridTextColumn Header="Last Login" />
+                            <DataGridTextColumn Header="Last Pwd Change" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Roles">

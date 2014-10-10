@@ -1,23 +1,27 @@
-﻿using System.Windows;
+﻿using System;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace MembershipManager.Common
 {
     public class MembershipConnection
     {
+        public string Name;
         public string Server;
         public string Database;
         public string Username;
         public string Password;
         public string ApplicationName;
 
-        public static MembershipConnection Get ()
+        public static MembershipConnection GetCurrent ()
         {
             return (MembershipConnection)Application.Current.Properties["Connection"];
         }
 
-        public static void Set(string server, string database, string username, string password, string applicationName)
+        public static void SetCurrent(string server, string database, string username, string password, string applicationName)
         {
-            Set(new MembershipConnection
+            SetCurrent(new MembershipConnection
             {
                 Server = server,
                 Database = database,
@@ -26,9 +30,39 @@ namespace MembershipManager.Common
                 ApplicationName = applicationName
             });
         }
-        public static void Set(MembershipConnection mc)
+        public static void SetCurrent(MembershipConnection mc)
         {
             Application.Current.Properties.Add("Connection", mc);
+        }
+
+        public static MembershipConnection GetFromString(string value)
+        {
+            var matches = Regex.Matches(value, "\\w+=\"([^\"]*)\"");
+
+            var builder = new SqlConnectionStringBuilder(matches[1].Groups[1].Value);
+
+            return new MembershipConnection
+            {
+                Name = matches[0].Groups[1].Value,
+                Server = builder.DataSource,
+                Database = builder.InitialCatalog,
+                Username = builder.UserID,
+                Password = builder.Password,
+                ApplicationName = matches[2].Groups[1].Value
+            };
+        }
+
+        public override string ToString()
+        {
+            var builder = new SqlConnectionStringBuilder();
+            
+            builder.DataSource = Server;
+            builder.InitialCatalog = Database;
+            builder.UserID = Username;
+            builder.Password = Password;
+            builder.ApplicationName = ApplicationName;
+
+            return String.Format("<connection name=\"{0}\" connectionString=\"{1}\" applicationName=\"{2}\" />", Name, builder.ConnectionString, ApplicationName);
         }
     }
 }

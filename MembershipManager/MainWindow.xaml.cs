@@ -24,9 +24,7 @@ namespace MembershipManager
         {
             InitializeComponent();
 
-            int total = 0;
-            var users = Membership.GetAllUsers(0, 100, out total);
-            MessageBox.Show("Users: " + total);
+            grdUsers.ItemsSource = Membership.GetAllUsers();
         }
     }
 }

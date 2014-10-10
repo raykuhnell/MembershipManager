@@ -59,9 +59,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Config\ConnectionCollection.cs" />
-    <Compile Include="Config\ConnectionElement.cs" />
-    <Compile Include="Config\ConnectionsSection.cs" />
     <Compile Include="Providers\CustomSqlMembershipProvider.cs" />
     <Compile Include="Providers\CustomSqlRoleProvider.cs" />
     <Compile Include="RoleWindow.xaml.cs">

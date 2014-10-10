@@ -11,7 +11,7 @@ namespace MembershipManager.Providers
     {
         public override void Initialize(string name, NameValueCollection config)
         {
-            var mc = MembershipConnection.Get();
+            var mc = MembershipConnection.GetCurrent();
             config.Set("applicationName", mc.ApplicationName);
             config.Set("connectionStringName", "DummyConnectionString");
 
