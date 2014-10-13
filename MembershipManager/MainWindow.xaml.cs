@@ -25,6 +25,28 @@ namespace MembershipManager
             InitializeComponent();
 
             grdUsers.ItemsSource = Membership.GetAllUsers();
+
+            grdRoles.ItemsSource = Roles.GetAllRoles();
         }
-    }
+
+        private void User_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            var row = (DataGridRow)sender;
+
+            var user = (MembershipUser)row.Item;
+
+            var userWindow = new UserWindow(user);
+            userWindow.ShowDialog();
+        }
+
+        private void Role_DoubleClick(object sender, RoutedEventArgs e)
+        {
+            var row = (DataGridRow)sender;
+
+            string role = (string)row.Item;
+
+            var roleWindow = new RoleWindow(role);
+            roleWindow.ShowDialog();
+        }
+    } 
 }

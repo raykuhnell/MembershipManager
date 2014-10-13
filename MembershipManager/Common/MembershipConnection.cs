@@ -52,6 +52,23 @@ namespace MembershipManager.Common
             };
         }
 
+        public bool Test()
+        {
+            bool success = true;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(this.ToString()))
+                {
+                    conn.Open();
+                }
+            }
+            catch (Exception ex)
+            {
+                success = false;
+            }
+            return success;
+        }
+
         public override string ToString()
         {
             var builder = new SqlConnectionStringBuilder();
@@ -60,7 +77,6 @@ namespace MembershipManager.Common
             builder.InitialCatalog = Database;
             builder.UserID = Username;
             builder.Password = Password;
-            builder.ApplicationName = ApplicationName;
 
             return String.Format("<connection name=\"{0}\" connectionString=\"{1}\" applicationName=\"{2}\" />", Name, builder.ConnectionString, ApplicationName);
         }

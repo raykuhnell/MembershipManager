@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Security;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -18,9 +19,46 @@ namespace MembershipManager
     /// </summary>
     public partial class RoleWindow : Window
     {
+        private string currentRoleName;
+
         public RoleWindow()
         {
             InitializeComponent();
+        }
+
+        public RoleWindow(string roleName)
+        {
+            InitializeComponent();
+
+            currentRoleName = roleName;
+
+            txtName.Text = roleName;
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(currentRoleName))
+            {
+                Roles.CreateRole(txtName.Text);
+            }
+            else
+            {
+                var users = Roles.GetUsersInRole(currentRoleName);
+                Roles.DeleteRole(currentRoleName);
+                Roles.CreateRole(txtName.Text);
+                Roles.AddUsersToRole(users, txtName.Text);
+            }
+
+            this.Close();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("Are you sure you want to delete this role?") == MessageBoxResult.Yes)
+            {
+                Roles.DeleteRole(currentRoleName);
+                this.Close();
+            }
         }
     }
 }
