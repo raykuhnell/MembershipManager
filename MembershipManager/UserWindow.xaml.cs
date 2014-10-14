@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace MembershipManager
 {
-    /// <summary>
-    /// Interaction logic for UserWindow.xaml
-    /// </summary>
     public partial class UserWindow : Window
     {
         MembershipUser currentUser;

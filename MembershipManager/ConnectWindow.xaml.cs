@@ -20,18 +20,32 @@ using System.ComponentModel;
 
 namespace MembershipManager
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class ConnectWindow : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<MembershipConnection> Connections;
+        public ObservableCollection<MembershipConnection> Connections { get; set; }
+
+        public MembershipConnection _selectedConnection;
+
+        public MembershipConnection SelectedConnection
+        {
+            get
+            {
+                return _selectedConnection;
+            }
+            set
+            {
+                _selectedConnection = value;
+                OnPropertyChanged("SelectedConnection");
+            }
+        }
 
         public ConnectWindow()
         {
             InitializeComponent();
 
             Connections = new ObservableCollection<MembershipConnection>();
+            Connections.Add(null);
+
             var connectionStrings = (StringCollection)Properties.Settings.Default["Connections"];
 
             if (connectionStrings != null)
@@ -47,7 +61,15 @@ namespace MembershipManager
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
         {
-            MembershipConnection.SetCurrent(txtServer.Text, txtDatabase.Text, txtUsername.Text, txtPassword.Text, txtApplicationName.Text);
+            if (_selectedConnection == null)
+            {
+                MembershipConnection.SetCurrent(txtServer.Text, txtDatabase.Text, txtUsername.Text, txtPassword.Text, txtApplicationName.Text);
+            }
+            else
+            {
+                MembershipConnection.SetCurrent(_selectedConnection);
+            }
+
             if (MembershipConnection.GetCurrent().Test())
             {
                 var mainWindow = new MainWindow();
@@ -62,12 +84,6 @@ namespace MembershipManager
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            var connectionStrings = (StringCollection)Properties.Settings.Default["Connections"];
-            if (connectionStrings == null)
-            {
-                connectionStrings = new StringCollection();
-            }
-
             var mc = new MembershipConnection
             {
                 Name = txtApplicationName.Text,
@@ -78,19 +94,50 @@ namespace MembershipManager
                 ApplicationName = txtApplicationName.Text
             };
 
-            connectionStrings.Add(mc.ToString());
+            Connections.Add(mc);
+
+            UpdateConnectionSettings();
+
+            OnPropertyChanged("Connections");
+        }
+
+        private void cboConnections_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                if (_selectedConnection != null)
+                {
+                    Connections.Remove(_selectedConnection);
+                    _selectedConnection = null;
+                    UpdateConnectionSettings();
+                }
+            }
+        }
+
+        private void UpdateConnectionSettings()
+        {
+            var connectionStrings = new StringCollection();
+
+            foreach (var mc in Connections)
+            {
+                if (mc != null)
+                {
+                    connectionStrings.Add(mc.ToString());
+                }
+            }
 
             Properties.Settings.Default["Connections"] = connectionStrings;
             Properties.Settings.Default.Save();
-
-            Connections.Add(mc);
-            RaisePropertyChanged("Connections");
         }
 
-        void RaisePropertyChanged(string prop)
-        {
-            if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(prop)); }
-        }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        void OnPropertyChanged(string propName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+            }       
+        }    
     }
 }

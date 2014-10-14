@@ -17,6 +17,6 @@
         <Label Content="Password:" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtApplicationName" HorizontalAlignment="Left" Height="23" Margin="127,184,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
         <Label Content="Application Name:" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top" />
-        <ComboBox x:Name="cboConnections" HorizontalAlignment="Left" Margin="127,45,0,0" VerticalAlignment="Top" Width="355" ItemsSource="{Binding Connections}" DisplayMemberPath="Name" />
+        <ComboBox x:Name="cboConnections" HorizontalAlignment="Left" Margin="127,45,0,0" VerticalAlignment="Top" Width="355" ItemsSource="{Binding Connections}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedConnection}" KeyUp="cboConnections_KeyUp" />
     </Grid>
 </Window>

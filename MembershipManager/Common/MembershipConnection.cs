@@ -7,12 +7,12 @@ namespace MembershipManager.Common
 {
     public class MembershipConnection
     {
-        public string Name;
-        public string Server;
-        public string Database;
-        public string Username;
-        public string Password;
-        public string ApplicationName;
+        public string Name { get; set; }
+        public string Server { get; set; }
+        public string Database { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string ApplicationName { get; set; }
 
         public static MembershipConnection GetCurrent ()
         {
@@ -32,6 +32,7 @@ namespace MembershipManager.Common
         }
         public static void SetCurrent(MembershipConnection mc)
         {
+            Application.Current.Properties.Remove("Connection");
             Application.Current.Properties.Add("Connection", mc);
         }
 
@@ -57,7 +58,7 @@ namespace MembershipManager.Common
             bool success = true;
             try
             {
-                using (SqlConnection conn = new SqlConnection(this.ToString()))
+                using (SqlConnection conn = new SqlConnection(this.ConnectionString()))
                 {
                     conn.Open();
                 }
@@ -71,14 +72,19 @@ namespace MembershipManager.Common
 
         public override string ToString()
         {
+            return String.Format("<connection name=\"{0}\" connectionString=\"{1}\" applicationName=\"{2}\" />", Name, this.ConnectionString(), ApplicationName);
+        }
+
+        public string ConnectionString()
+        {
             var builder = new SqlConnectionStringBuilder();
-            
+
             builder.DataSource = Server;
             builder.InitialCatalog = Database;
             builder.UserID = Username;
             builder.Password = Password;
 
-            return String.Format("<connection name=\"{0}\" connectionString=\"{1}\" applicationName=\"{2}\" />", Name, builder.ConnectionString, ApplicationName);
+            return builder.ConnectionString;
         }
     }
 }

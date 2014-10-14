@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace MembershipManager
 {
-    /// <summary>
-    /// Interaction logic for RoleWindow.xaml
-    /// </summary>
     public partial class RoleWindow : Window
     {
         private string currentRoleName;
