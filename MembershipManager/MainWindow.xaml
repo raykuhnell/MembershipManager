@@ -3,8 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MembershipManager" Height="700" Width="1000">
     <Grid>
-        <GroupBox Header="Users" Margin="0,0,200,0">
-            <DataGrid x:Name="grdUsers" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" AutoGenerateColumns="False">
+        <Menu IsMainMenu="True">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Disconnect" Click="DisconnectItem_Click" />
+                <MenuItem Header="E_xit" Click="ExitItem_Click" />
+            </MenuItem>
+            <MenuItem Header="_New">
+                <MenuItem Header="_User" Click="NewUserItem_Click" />
+                <MenuItem Header="_Role" Click="NewRoleItem_Click" />
+            </MenuItem>
+        </Menu>
+        <GroupBox Header="Users" Margin="0,21,160,0">
+            <DataGrid x:Name="grdUsers" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="User Name" Binding="{Binding UserName}" />
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
@@ -24,7 +34,7 @@
                 </DataGrid.Resources>
             </DataGrid>
         </GroupBox>
-        <GroupBox Header="Roles" Margin="792,0,0,0">
+        <GroupBox Header="Roles" Margin="832,21,0,-21">
             <DataGrid x:Name="grdRoles" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Name" Binding="{Binding}" />

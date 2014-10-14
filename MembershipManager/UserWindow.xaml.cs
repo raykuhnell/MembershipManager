@@ -32,6 +32,7 @@ namespace MembershipManager
             txtUserName.Text = user.UserName;
             txtEmail.Text = user.Email;
             txtPasswordQuestion.Text = user.PasswordQuestion;
+            chkIsApproved.IsChecked = user.IsApproved;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

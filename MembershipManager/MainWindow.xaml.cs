@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Web.Security;
 using MembershipManager.Providers;
+using MembershipManager.Common;
 
 namespace MembershipManager
 {
@@ -45,5 +46,30 @@ namespace MembershipManager
             var roleWindow = new RoleWindow(role);
             roleWindow.ShowDialog();
         }
+
+        private void DisconnectItem_Click(object sender, RoutedEventArgs e)
+        {
+            MembershipConnection.Clear();
+            var connectWindow = new ConnectWindow();
+            connectWindow.Show();
+            this.Close();
+        }
+
+        private void ExitItem_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void NewUserItem_Click(object sender, RoutedEventArgs e)
+        {
+            var userWindow = new UserWindow();
+            userWindow.ShowDialog();
+        }
+
+        private void NewRoleItem_Click(object sender, RoutedEventArgs e)
+        {
+            var roleWindow = new RoleWindow();
+            roleWindow.ShowDialog();
+        } 
     } 
 }

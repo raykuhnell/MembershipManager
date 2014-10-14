@@ -53,6 +53,11 @@ namespace MembershipManager.Common
             };
         }
 
+        public static void Clear()
+        {
+            Application.Current.Properties.Remove("Connection");
+        }
+
         public bool Test()
         {
             bool success = true;
