@@ -34,19 +34,26 @@ namespace MembershipManager
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(currentRoleName))
+            try
             {
-                Roles.CreateRole(txtName.Text);
-            }
-            else
-            {
-                var users = Roles.GetUsersInRole(currentRoleName);
-                Roles.DeleteRole(currentRoleName);
-                Roles.CreateRole(txtName.Text);
-                Roles.AddUsersToRole(users, txtName.Text);
-            }
+                if (String.IsNullOrEmpty(currentRoleName))
+                {
+                    Roles.CreateRole(txtName.Text);
+                }
+                else if (currentRoleName != txtName.Text)
+                {
+                    var users = Roles.GetUsersInRole(currentRoleName);
+                    Roles.DeleteRole(currentRoleName);
+                    Roles.CreateRole(txtName.Text);
+                    Roles.AddUsersToRole(users, txtName.Text);
+                }
 
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred saving the role information. " + ex.Message);
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

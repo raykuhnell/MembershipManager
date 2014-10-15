@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\CheckedListItem.cs" />
     <Compile Include="Providers\CustomSqlMembershipProvider.cs" />
     <Compile Include="Providers\CustomSqlRoleProvider.cs" />
     <Compile Include="RoleWindow.xaml.cs">

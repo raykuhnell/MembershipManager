@@ -16,7 +16,13 @@
         <Label Content="Is Approved?" HorizontalAlignment="Left" Margin="10,165,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="chkIsApproved" HorizontalAlignment="Left" Height="23" Margin="126,168,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Roles" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="lbRoles" HorizontalAlignment="Left" Height="100" Margin="10,228,0,0" VerticalAlignment="Top" Width="372"/>
+        <ListBox x:Name="lbRoles" HorizontalAlignment="Left" Height="100" Margin="10,228,0,0" VerticalAlignment="Top" Width="372" ItemsSource="{Binding RoleItems}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Text}" IsChecked="{Binding IsChecked}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button x:Name="btnResetPassword" Content="Reset Password" HorizontalAlignment="Left" Margin="292,45,0,0" VerticalAlignment="Top" Width="90" Height="23" Click="btnResetPassword_Click"/>
         <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="307,333,0,0" VerticalAlignment="Top" Width="75"/>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,333,0,0"/>

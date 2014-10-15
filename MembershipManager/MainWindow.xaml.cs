@@ -22,9 +22,8 @@ namespace MembershipManager
         {
             InitializeComponent();
 
-            grdUsers.ItemsSource = Membership.GetAllUsers();
-
-            grdRoles.ItemsSource = Roles.GetAllRoles();
+            BindUsers();
+            BindRoles();
         }
 
         private void User_DoubleClick(object sender, RoutedEventArgs e)
@@ -35,6 +34,8 @@ namespace MembershipManager
 
             var userWindow = new UserWindow(user);
             userWindow.ShowDialog();
+
+            BindUsers();
         }
 
         private void Role_DoubleClick(object sender, RoutedEventArgs e)
@@ -45,6 +46,8 @@ namespace MembershipManager
 
             var roleWindow = new RoleWindow(role);
             roleWindow.ShowDialog();
+
+            BindRoles();
         }
 
         private void DisconnectItem_Click(object sender, RoutedEventArgs e)
@@ -64,12 +67,26 @@ namespace MembershipManager
         {
             var userWindow = new UserWindow();
             userWindow.ShowDialog();
+
+            BindUsers();
         }
 
         private void NewRoleItem_Click(object sender, RoutedEventArgs e)
         {
             var roleWindow = new RoleWindow();
             roleWindow.ShowDialog();
-        } 
+
+            BindRoles();
+        }
+
+        private void BindUsers()
+        {
+            grdUsers.ItemsSource = Membership.GetAllUsers();
+        }
+
+        private void BindRoles()
+        {
+            grdRoles.ItemsSource = Roles.GetAllRoles();
+        }
     } 
 }

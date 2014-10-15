@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MembershipManager.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Web.Security;
@@ -18,44 +20,90 @@ namespace MembershipManager
     {
         MembershipUser currentUser;
 
+        public ObservableCollection<CheckedListItem> RoleItems { get; set; }
+
         public UserWindow()
         {
             InitializeComponent();
+
+            RoleItems = new ObservableCollection<CheckedListItem>();
+            foreach (string role in Roles.GetAllRoles())
+            {
+                RoleItems.Add(new CheckedListItem() { Text = role });
+            }
+
+            DataContext = this;
         }
 
-        public UserWindow(MembershipUser user)
+        public UserWindow(MembershipUser user) : this()
         {
-            InitializeComponent();
-
             currentUser = user;
 
             txtUserName.Text = user.UserName;
             txtEmail.Text = user.Email;
             txtPasswordQuestion.Text = user.PasswordQuestion;
             chkIsApproved.IsChecked = user.IsApproved;
+
+            txtUserName.IsEnabled = false;
+
+            foreach (string role in Roles.GetRolesForUser(user.UserName))
+            {
+                foreach (var item in RoleItems)
+                {
+                    if (role == item.Text)
+                    {
+                        item.IsChecked = true;
+                    }
+                }
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (currentUser == null)
+            try
             {
-                MembershipUser u;
-                if (!String.IsNullOrEmpty(txtPasswordQuestion.Text) && !String.IsNullOrEmpty(txtPasswordAnswer.Text)) 
+                if (currentUser == null)
                 {
-                    MembershipCreateStatus status;
-                    u = Membership.CreateUser(txtUserName.Text, txtPassword.Text, txtEmail.Text, txtPasswordQuestion.Text, txtPasswordAnswer.Text, chkIsApproved.IsChecked == true, out status);
+                    if (!String.IsNullOrEmpty(txtPasswordQuestion.Text) && !String.IsNullOrEmpty(txtPasswordAnswer.Text))
+                    {
+                        MembershipCreateStatus status;
+                        currentUser = Membership.CreateUser(txtUserName.Text, txtPassword.Text, txtEmail.Text, txtPasswordQuestion.Text, txtPasswordAnswer.Text, chkIsApproved.IsChecked == true, out status);
+                    }
+                    else
+                    {
+                        currentUser = Membership.CreateUser(txtUserName.Text, txtPassword.Text, txtEmail.Text);
+                    }
                 }
                 else
                 {
-                    u = Membership.CreateUser(txtUserName.Text, txtPassword.Text, txtEmail.Text);
-                }
-            }
-            else
-            {
-                currentUser.Email = txtEmail.Text;
-            }
+                    currentUser.Email = txtEmail.Text;
+                    currentUser.IsApproved = chkIsApproved.IsChecked == true;
+                    Membership.UpdateUser(currentUser);
 
-            this.Close();
+                    if (!String.IsNullOrEmpty(txtPassword.Text))
+                    {
+                        currentUser.ChangePassword(currentUser.ResetPassword(), txtPassword.Text);
+                    }
+                }
+
+                foreach (var roleItem in RoleItems)
+                {
+                    if (roleItem.IsChecked && !Roles.IsUserInRole(currentUser.UserName, roleItem.Text))
+                    {
+                        Roles.AddUserToRole(currentUser.UserName, roleItem.Text);
+                    }
+                    else if (Roles.IsUserInRole(currentUser.UserName, roleItem.Text))
+                    {
+                        Roles.RemoveUserFromRole(currentUser.UserName, roleItem.Text);
+                    }
+                }
+
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred saving the user information. " + ex.Message);
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
