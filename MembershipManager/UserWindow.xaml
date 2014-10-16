@@ -6,7 +6,7 @@
         <Label Content="User Name" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Height="23" Margin="126,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="126,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="126,45,0,0" VerticalAlignment="Top" Width="161" PasswordChar="*"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="23" Margin="126,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="161"/>
         <Label Content="Password Question" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top"/>

@@ -67,11 +67,11 @@ namespace MembershipManager
                     if (!String.IsNullOrEmpty(txtPasswordQuestion.Text) && !String.IsNullOrEmpty(txtPasswordAnswer.Text))
                     {
                         MembershipCreateStatus status;
-                        currentUser = Membership.CreateUser(txtUserName.Text, txtPassword.Text, txtEmail.Text, txtPasswordQuestion.Text, txtPasswordAnswer.Text, chkIsApproved.IsChecked == true, out status);
+                        currentUser = Membership.CreateUser(txtUserName.Text, txtPassword.Password, txtEmail.Text, txtPasswordQuestion.Text, txtPasswordAnswer.Text, chkIsApproved.IsChecked == true, out status);
                     }
                     else
                     {
-                        currentUser = Membership.CreateUser(txtUserName.Text, txtPassword.Text, txtEmail.Text);
+                        currentUser = Membership.CreateUser(txtUserName.Text, txtPassword.Password, txtEmail.Text);
                     }
                 }
                 else
@@ -80,9 +80,9 @@ namespace MembershipManager
                     currentUser.IsApproved = chkIsApproved.IsChecked == true;
                     Membership.UpdateUser(currentUser);
 
-                    if (!String.IsNullOrEmpty(txtPassword.Text))
+                    if (!String.IsNullOrEmpty(txtPassword.Password) && MessageBox.Show("Entering a password for this user will change their password.  Are you sure you want to do this?", "MembershipManager", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        currentUser.ChangePassword(currentUser.ResetPassword(), txtPassword.Text);
+                        currentUser.ChangePassword(currentUser.ResetPassword(), txtPassword.Password);
                     }
                 }
 
@@ -108,7 +108,7 @@ namespace MembershipManager
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete this user?") == MessageBoxResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this user?", "MembershipManager", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 Membership.DeleteUser(currentUser.UserName);
                 this.Close();
@@ -118,6 +118,8 @@ namespace MembershipManager
         private void btnResetPassword_Click(object sender, RoutedEventArgs e)
         {
             string password = currentUser.ResetPassword();
+            var passwordResetWindow = new PasswordResetWindow(password);
+            passwordResetWindow.ShowDialog();
         }
     }
 }

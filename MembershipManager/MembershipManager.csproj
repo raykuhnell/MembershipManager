@@ -60,6 +60,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CheckedListItem.cs" />
+    <Compile Include="PasswordResetWindow.xaml.cs">
+      <DependentUpon>PasswordResetWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Providers\CustomSqlMembershipProvider.cs" />
     <Compile Include="Providers\CustomSqlRoleProvider.cs" />
     <Compile Include="RoleWindow.xaml.cs">
@@ -82,6 +85,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PasswordResetWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

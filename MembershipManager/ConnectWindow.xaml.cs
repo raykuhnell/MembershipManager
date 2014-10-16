@@ -63,7 +63,7 @@ namespace MembershipManager
         {
             if (_selectedConnection == null)
             {
-                MembershipConnection.SetCurrent(txtServer.Text, txtDatabase.Text, txtUsername.Text, txtPassword.Text, txtApplicationName.Text);
+                MembershipConnection.SetCurrent(txtServer.Text, txtDatabase.Text, txtUsername.Text, txtPassword.Password, txtApplicationName.Text);
             }
             else
             {
@@ -90,7 +90,7 @@ namespace MembershipManager
                 Server = txtServer.Text,
                 Database = txtDatabase.Text,
                 Username = txtUsername.Text,
-                Password = txtPassword.Text,
+                Password = txtPassword.Password,
                 ApplicationName = txtApplicationName.Text
             };
 
