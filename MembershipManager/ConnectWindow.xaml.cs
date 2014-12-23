@@ -61,6 +61,8 @@ namespace MembershipManager
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
         {
+            SetFieldsEnabled(false);
+
             if (_selectedConnection == null)
             {
                 MembershipConnection.SetCurrent(txtServer.Text, txtDatabase.Text, txtUsername.Text, txtPassword.Password, txtApplicationName.Text);
@@ -80,6 +82,8 @@ namespace MembershipManager
             {
                 MessageBox.Show("MembershipManager could not connect using the specified information.  Please try again.");
             }
+
+            SetFieldsEnabled(true);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -128,6 +132,16 @@ namespace MembershipManager
 
             Properties.Settings.Default["Connections"] = connectionStrings;
             Properties.Settings.Default.Save();
+        }
+
+        private void SetFieldsEnabled(bool enabled)
+        {
+            cboConnections.IsEnabled = enabled;
+            txtServer.IsEnabled = enabled;
+            txtDatabase.IsEnabled = enabled;
+            txtUsername.IsEnabled = enabled;
+            txtPassword.IsEnabled = enabled;
+            txtApplicationName.IsEnabled = enabled;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
