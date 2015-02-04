@@ -58,7 +58,7 @@ namespace MembershipManager
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show("Are you sure you want to delete this role?") == MessageBoxResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete this role?", "MembershipManager", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 Roles.DeleteRole(currentRoleName);
                 this.Close();

@@ -24,7 +24,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button x:Name="btnResetPassword" Content="Reset Password" HorizontalAlignment="Left" Margin="282,31,0,0" VerticalAlignment="Top" Width="90" Height="23" Click="btnResetPassword_Click"/>
-        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="297,308,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,308,0,0"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="297,308,0,0" VerticalAlignment="Top" Width="75" Click="btnSave_Click"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,308,0,0" Click="btnDelete_Click"/>
     </Grid>
 </Window>
